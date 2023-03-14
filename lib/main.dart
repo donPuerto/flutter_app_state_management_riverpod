@@ -25,18 +25,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends ConsumerWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final greetings = ref.watch(helloWorldProvider);
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Riverpod Provider"),
       ),
       body: Center(
-        child: Text('Hello $greetings'),
+        child: Consumer(builder: (context, ref, child) {
+          final greetings = ref.watch(helloWorldProvider);
+          return Text('Hello $greetings');
+        }),
       ),
     );
   }
