@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final helloWorldProvider = Provider((_) => 'world');
+final counterProvider = StateProvider<int>((ref) => 0);
 
 void main() {
   runApp(
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -25,31 +26,49 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Main extends ConsumerStatefulWidget {
+class Main extends ConsumerWidget {
   const Main({Key? key}) : super(key: key);
 
   @override
-  _MainState createState() => _MainState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(counterProvider);
 
-class _MainState extends ConsumerState<Main> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    final greetings = ref.read(helloWorldProvider);
-    print(greetings);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final greetings = ref.watch(helloWorldProvider);
+    ref.listen(
+        counterProvider,
+        (((previous, next) => {
+              if (next == 10)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("The value is $next"),
+                  ))
+                }
+            })));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statefull using Riverpod '),
+        title: const Text('State Provider'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                //ref.invalidate(counterProvider);
+                ref.refresh(counterProvider);
+              },
+              icon: const Icon(Icons.refresh))
+        ],
       ),
       body: Center(
-        child: Text("hello $greetings"),
+        child: Text(
+          count.toString(),
+          style: const TextStyle(fontSize: 30),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // ref.read(counterProvider.notifier).state++;
+          ref
+              .read(counterProvider.notifier)
+              .update((state) => state = state + 1);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
