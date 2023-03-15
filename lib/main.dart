@@ -21,24 +21,35 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage());
+        home: const Main());
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Main extends ConsumerStatefulWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends ConsumerState<Main> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final greetings = ref.read(helloWorldProvider);
+    print(greetings);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final greetings = ref.watch(helloWorldProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Riverpod Provider"),
+        title: const Text('Statefull using Riverpod '),
       ),
       body: Center(
-        child: Consumer(builder: (context, ref, child) {
-          final greetings = ref.watch(helloWorldProvider);
-          return Text('Hello $greetings');
-        }),
+        child: Text("hello $greetings"),
       ),
     );
   }
