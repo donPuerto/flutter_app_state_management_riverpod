@@ -1,44 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'providers/demo_provider.dart';
+
 final helloWorldProvider = Provider((_) => 'world');
 
 void main() {
   runApp(
     // Adding ProviderScope enables Riverpod for the entire project
-    const ProviderScope(child: MyApp()),
+    const ProviderScope(child: Main()),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Main extends ConsumerWidget {
+  const Main({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String value = ref.watch(greetingsProvider);
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      title: 'Riverpod Tutorial',
+      home: Scaffold(
+        appBar: AppBar(
+            title:
+                const Text('Riverpod - using Provider with statelesswidget')),
+        body: Center(
+          child: Text('Hello $value'),
         ),
-        home: const MyHomePage());
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Riverpod Provider"),
-      ),
-      body: Center(
-        child: Consumer(builder: (context, ref, child) {
-          final greetings = ref.watch(helloWorldProvider);
-          return Text('Hello $greetings');
-        }),
       ),
     );
   }
