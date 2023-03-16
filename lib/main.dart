@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'counter_demo.dart';
 
-final counterProvider =
-    StateNotifierProvider<CounterDemo, int>((ref) => CounterDemo());
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(
@@ -24,33 +22,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Main());
-  }
-}
-
-class Main extends ConsumerWidget {
-  const Main({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('State Notifier Provider'),
-      ),
-      body: Center(
-        child: Text(
-          count.toString(),
-          style: const TextStyle(fontSize: 30),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref.read(counterProvider.notifier).increment();
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+        home: const HomeScreen());
   }
 }
