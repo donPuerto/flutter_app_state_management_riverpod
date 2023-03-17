@@ -10,6 +10,11 @@ void main() {
   );
 }
 
+/*
+  Two options we can do here,
+  (1) using ConsumerWidget
+  (2) using Consumer
+*/
 class Main extends ConsumerWidget {
   const Main({Key? key}) : super(key: key);
 
