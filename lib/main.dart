@@ -15,6 +15,9 @@ void main() {
   (1) using ConsumerWidget
   (2) using Consumer
 */
+
+// Consumer Widget Example
+/*
 class Main extends ConsumerWidget {
   const Main({Key? key}) : super(key: key);
 
@@ -29,6 +32,33 @@ class Main extends ConsumerWidget {
                 const Text('Riverpod - using Provider with statelesswidget')),
         body: Center(
           child: Text('Hello $value'),
+        ),
+      ),
+    );
+  }
+}
+*/
+
+// Consumer Functiion Example
+
+class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod Tutorial',
+      home: Scaffold(
+        appBar: AppBar(
+            title:
+                const Text('Riverpod - using Provider with statelesswidget')),
+        body: Center(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final String greet = ref.read(greetingsProvider);
+              return Text('hello $greet');
+            },
+          ),
         ),
       ),
     );
