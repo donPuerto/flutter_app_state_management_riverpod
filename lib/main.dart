@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/demo_provider.dart';
 
-final helloWorldProvider = Provider((_) => 'world');
-
 void main() {
   runApp(
     // Adding ProviderScope enables Riverpod for the entire project
