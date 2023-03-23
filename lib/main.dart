@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'providers/demo_provider.dart';
+// import 'screens/greeting_screen.dart';
+
+// import 'screens/counter_screen.dart';
+import 'screens/todo_screen.dart';
+// import 'screens/user_info_screen.dart';
 
 void main() {
   runApp(
@@ -10,22 +14,14 @@ void main() {
   );
 }
 
-class Main extends ConsumerWidget {
+class Main extends StatelessWidget {
   const Main({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(greetingsProvider);
-    return MaterialApp(
+  Widget build(BuildContext context) {
+    return const MaterialApp(
       title: 'Riverpod Tutorial',
-      home: Scaffold(
-        appBar: AppBar(
-            title:
-                const Text('Riverpod - using Provider with statelesswidget')),
-        body: Center(
-          child: Text('Hello $value'),
-        ),
-      ),
+      home: TodoScreen(),
     );
   }
 }
