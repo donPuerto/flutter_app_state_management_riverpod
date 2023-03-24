@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/state_notifier_providerv1.dart';
+import '../providers/state_notifier_provider_v1.dart';
 
 class UserInfoScreen extends ConsumerWidget {
   const UserInfoScreen({Key? key}) : super(key: key);
